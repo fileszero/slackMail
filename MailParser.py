@@ -15,6 +15,8 @@ class MailParser:
         self.to_address = None
         self.cc_address = None
         self.from_address = None
+        self.x_original_to = None              #X-Original-To:
+        self.delivered_to = None # Delivered-To
         self.body = ""
         # 添付ファイル関連の情報
         # {name: file_name, data: data}
@@ -26,25 +28,21 @@ class MailParser:
         """
         メールデータの取得
         """
-        result = """\
-FROM: {}
-TO: {}
-CC: {}
+        files=",".join([ x["name"] for x in self.attach_file_list])
+        result = f"""\
+FROM: {self.from_address}
+TO: {self.to_address}
+CC: {self.cc_address}
+X-Original-To: {self.x_original_to}
+Delivered-To: {self.delivered_to}
 -----------------------
 BODY:
-{}
+{self.body}
 -----------------------
 ATTACH_FILE_NAME:
-{}
-""".format(
-            self.from_address,
-            self.to_address,
-            self.cc_address,
-            self.body,
-            ",".join([ x["name"] for x in self.attach_file_list])
-        )
+{files}
+"""
         return result
-
 
     def _parse(self):
         """
@@ -55,6 +53,8 @@ ATTACH_FILE_NAME:
         self.to_address = self._get_decoded_header("To")
         self.cc_address = self._get_decoded_header("Cc")
         self.from_address = self._get_decoded_header("From")
+        self.x_original_to = self._get_decoded_header("X-Original-To")
+        self.delivered_to = self._get_decoded_header("Delivered-To")
 
         # メッセージ本文部分の処理
         for part in self.email_message.walk():

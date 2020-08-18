@@ -75,5 +75,10 @@ class GooglePeople:
 
 if __name__ == '__main__':
     api=GooglePeople()
-    contact=api.getContactByPhoneNumber("0120914557")
+    contact=api.getContactByPhoneNumber("0120-914-557")
+    print(contact)
+    name="/".join(map(lambda name: name.get("displayName"),contact.get("names")))
+    print(name)
+
+    contact=api.getContactByPhoneNumber("1234-567-890")
     print(contact)
