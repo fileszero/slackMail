@@ -14,7 +14,7 @@ import googlePeople
 class defaultConverter:
     def convert(self,mail: MailParser.MailParser ):
         body=mail.body
-        result={'text':body}
+        result={'text':body,'username':mail.from_address}
         return result
 
 if __name__ == "__main__":
