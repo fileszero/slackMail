@@ -67,10 +67,11 @@ ATTACH_FILE_NAME:
             # ファイル名がない場合は本文のはず
             if not attach_fname:
                 charset = str(part.get_content_charset())
-                if charset:
-                    self.body += part.get_payload(decode=True).decode(charset, errors="replace")
-                else:
-                    self.body += part.get_payload(decode=True)
+                if part.get('Content-Type').startswith('text/plain'):
+                    if charset:
+                        self.body += part.get_payload(decode=True).decode(charset, errors="replace")
+                    else:
+                        self.body += part.get_payload(decode=True)
             else:
                 # ファイル名があるならそれは添付ファイルなので
                 # データを取得する

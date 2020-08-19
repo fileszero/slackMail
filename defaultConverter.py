@@ -18,10 +18,14 @@ class defaultConverter:
         return result
 
 if __name__ == "__main__":
-
-    text = sys.stdin.read()
+    path='./sampledata/gsggsgsg.eml'
+    path='./sampledata/GREEN_DOG_Fix.eml'
+    # path=sys.argv[1]
+    with open(path) as f:
+        text=f.read()
+    # text = sys.stdin.read()
 
     mail = MailParser.MailParser(text)
     converter=defaultConverter()
     msg=converter.convert(mail)
-    print(msg)
+    print(msg["text"])
