@@ -35,7 +35,14 @@ print(channel)
 
 slack_client = slack.WebClient(conf["slack"]["token"])
 
+slack_opt_default={'channel':channel,'text':'slack hello text','as_user':False,'username':'Slack Mail','icon_emoji':':robot_face:'}
+slack_opt= {**slack_opt_default, **msg}
+print(slack_opt)
 response = slack_client.chat_postMessage(
-    channel=channel,  #'#random'
-    text=msg)
+    channel=slack_opt.get('channel'),  #'#random'
+    text=slack_opt.get('text'),
+    as_user=slack_opt.get('as_user'),
+    username=slack_opt.get('username'),
+    icon_emoji=slack_opt.get('icon_emoji')
+    )
 print(response)

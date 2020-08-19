@@ -29,7 +29,8 @@ class missedLalacall:
                 tel += '  [' + name + ']'
             body = body.replace(s, tel)
 
-        return body
+        result={'text':body,'icon_emoji':':telephone:','username':'LalaCall'}
+        return result
 
 if __name__ == "__main__":
 
