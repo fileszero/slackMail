@@ -13,13 +13,15 @@ import googlePeople
 
 class defaultConverter:
     def convert(self,mail: MailParser.MailParser ):
-        body=mail.body
+        if mail.subject:
+            body=f"`{mail.subject}`\n"
+        body +=mail.body
         result={'text':body,'username':mail.from_address}
         return result
 
 if __name__ == "__main__":
     path='./sampledata/gsggsgsg.eml'
-    path='./sampledata/GREEN_DOG_Fix.eml'
+    # path='./sampledata/GREEN_DOG_Fix.eml'
     # path=sys.argv[1]
     with open(path) as f:
         text=f.read()
