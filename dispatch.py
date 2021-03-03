@@ -14,7 +14,7 @@ from converters import missedLalacall
 
 def dispatch( email_file=''):
     # read mail contents
-    if os.path.exists(email_file):
+    if os.path.exists(str(email_file)):
         # DEBUG
         with open(email_file) as f:
             text = f.read()
@@ -61,5 +61,9 @@ def dispatch( email_file=''):
         )
     print(response)
 
-dispatch()
-dispatch(os.path.join(os.path.dirname(__file__),"sampledata","lalacall.eml"))
+input_file=""
+if sys.argv[1:2]:
+    input_file=sys.argv[1]
+
+dispatch(input_file)
+# dispatch(os.path.join(os.path.dirname(__file__),"sampledata","lalacall.eml"))
