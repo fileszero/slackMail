@@ -1,5 +1,6 @@
 sampledata/*
 credentials.json
 token.pickle
+token.pickle*
 __pycache__/*
 config.jsonc
