@@ -4,3 +4,5 @@ token.pickle
 token.pickle*
 __pycache__/*
 config.jsonc
+converters/__pycache__/*
+etc/cron_sample.conf

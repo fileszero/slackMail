@@ -4,6 +4,8 @@
     // 詳細情報は次を確認してください: https://go.microsoft.com/fwlink/?linkid=830387
     "version": "0.2.0",
     "configurations": [
+        {"name":"Python: Current File","type":"python","request":"launch","program":"${file}","console":"integratedTerminal"},
+
         {
             "name": "Python: dispatch",
             "type": "python",
@@ -12,6 +14,16 @@
             "console": "integratedTerminal",
             "args": ["./sampledata/lalacall.eml"],
             "cwd": "${workspaceFolder}"
+        },
+        {
+            "name": "Python: slackpost",
+            "type": "python",
+            "request": "launch",
+            "program": "slackpost.py",
+            "console": "integratedTerminal",
+            "args": ["#random","this","is","a","test"],
+            "cwd": "${workspaceFolder}"
         }
+
     ]
 }
