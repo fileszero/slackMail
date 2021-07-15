@@ -5,6 +5,6 @@ token.pickle*
 __pycache__/*
 config.jsonc
 converters/__pycache__/*
-etc/cron_sample.conf
 converters/__pycache__/__init__.cpython-38.pyc
 converters/__pycache__/*
+*.pyc
