@@ -11,6 +11,7 @@ import MailParser
 import config
 from converters import defaultConverter
 from converters import missedLalacall
+from converters import sbiContractNotification
 
 def dispatch( email_file=''):
     # read mail contents
@@ -32,6 +33,8 @@ def dispatch( email_file=''):
     # custom converters
     if mail.from_address=='missed_call_service@eonet.ne.jp':
         converter= missedLalacall.missedLalacall()
+    if mail.from_address=='alert_master@sbisec.co.jp' and ("約定通知" in mail.subject):
+        converter= sbiContractNotification.sbiContractNotification()
 
     msg=converter.convert(mail)
 
