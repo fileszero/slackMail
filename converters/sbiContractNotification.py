@@ -42,7 +42,7 @@ class sbiContractNotification:
             elif line.endswith("買") or line.endswith("売") :
                 trade = line
 
-        body=f"{trade} {event_time}\n\{price} * {vol}\n{stock_info}"
+        body=f"{trade}\n{price}円 * {vol}株\n{stock_info}\n{event_time}"
 
         result={'text':body,'icon_emoji':':money_with_wings:','username':'SBI Alert'}
         return result
