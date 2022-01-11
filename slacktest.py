@@ -9,6 +9,6 @@ config = config.get_config()
 client = slack.WebClient(config["slack"]["token"])
 
 response = client.chat_postMessage(
-    channel='#private_test',  #'#random'
+    channel='#random',  #'#random' private_test
     text="Hello world!")
 print(response)
