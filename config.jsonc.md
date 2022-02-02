@@ -9,7 +9,8 @@ like
     },
     "LINE":{
         "token":"generate toke on https://developers.line.biz/console/ provider/ channel/  message API",
-        "channel_secret":"get channel_secret on https://developers.line.biz/console/ provider/ cannel / Basic settings"
+        "channel_secret":"get channel_secret on https://developers.line.biz/console/ provider/ cannel / Basic settings",
+        "users":["user id 1","user id 2"]
     }
 
 }

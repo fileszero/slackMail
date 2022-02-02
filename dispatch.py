@@ -13,6 +13,44 @@ from converters import defaultConverter
 from converters import missedLalacall
 from converters import sbiContractNotification
 
+from linebot import (
+ LineBotApi, WebhookHandler
+)
+from linebot.models import (
+    MessageEvent, TextMessage, TextSendMessage,
+)
+
+def sendLINEMessage(conf, msg: dict):
+    ACCESS_TOKEN = conf["LINE"]["token"]
+
+    line_bot_api = LineBotApi(ACCESS_TOKEN)
+    if("users" in conf["LINE"]):
+        users = conf["LINE"]["users"]
+        line_bot_api.multicast(users,TextSendMessage(text=msg["text"]))
+    else:
+        line_bot_api.broadcast(TextSendMessage(text=msg["text"]))
+
+def sendSlackMessage(conf, msg: dict,channel):
+    if not channel:
+        channel=conf["slack"]["default_channel"]
+    slack_client = slack.WebClient(conf["slack"]["token"])
+
+    # message params
+    slack_opt_default={'channel':channel,'text':'slack hello text','as_user':False,'username':'Slack Mail','icon_emoji':':robot_face:'}
+    slack_opt= {**slack_opt_default, **msg}
+    print(slack_opt)
+
+    # post message
+    response = slack_client.chat_postMessage(
+        channel=slack_opt.get('channel'),  #'#random'
+        text=slack_opt.get('text'),
+        as_user=slack_opt.get('as_user'),
+        username=slack_opt.get('username'),
+        icon_emoji=slack_opt.get('icon_emoji')
+        )
+    print(response)
+
+
 def dispatch( email_file=''):
     # read mail contents
     if os.path.exists(str(email_file)):
@@ -39,30 +77,17 @@ def dispatch( email_file=''):
     msg=converter.convert(mail)
 
     # slack channel
-    channel=conf["slack"]["default_channel"]
+    channel=""
     match=re.match(r'^slack\+(.*)@', mail.delivered_to)
     if match:
         channel= match.group(1)
 
     print(msg)
     print(channel)
-
-    slack_client = slack.WebClient(conf["slack"]["token"])
-
-    # message params
-    slack_opt_default={'channel':channel,'text':'slack hello text','as_user':False,'username':'Slack Mail','icon_emoji':':robot_face:'}
-    slack_opt= {**slack_opt_default, **msg}
-    print(slack_opt)
-
-    # post message
-    response = slack_client.chat_postMessage(
-        channel=slack_opt.get('channel'),  #'#random'
-        text=slack_opt.get('text'),
-        as_user=slack_opt.get('as_user'),
-        username=slack_opt.get('username'),
-        icon_emoji=slack_opt.get('icon_emoji')
-        )
-    print(response)
+    if channel.upper() == "LINE":
+        sendLINEMessage(conf,msg)
+    else:
+        sendSlackMessage(conf,msg,channel)
 
 input_file=""
 if sys.argv[1:2]:
@@ -70,3 +95,7 @@ if sys.argv[1:2]:
 
 dispatch(input_file)
 # dispatch(os.path.join(os.path.dirname(__file__),"sampledata","lalacall.eml"))
+
+# conf=config.get_config()
+# sendLINEMessage(conf,{'channel':'channel','text':'LINE hello text','as_user':False,'username':'Slack Mail','icon_emoji':':robot_face:'})
+# sendSlackMessage(conf,{'text':'LINE hello text','as_user':False,'username':'Slack Mail','icon_emoji':':robot_face:'},"")
