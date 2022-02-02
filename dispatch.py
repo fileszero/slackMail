@@ -24,11 +24,19 @@ def sendLINEMessage(conf, msg: dict):
     ACCESS_TOKEN = conf["LINE"]["token"]
 
     line_bot_api = LineBotApi(ACCESS_TOKEN)
+    text=msg["text"]
+    sent=False
     if("users" in conf["LINE"]):
         users = conf["LINE"]["users"]
-        line_bot_api.multicast(users,TextSendMessage(text=msg["text"]))
-    else:
-        line_bot_api.broadcast(TextSendMessage(text=msg["text"]))
+        line_bot_api.multicast(users,TextSendMessage(text=text))
+        sent=True
+    if("group" in conf["LINE"]):
+        group = config["LINE"]["group"]
+        line_bot_api.push_message(group,TextSendMessage(text=text ))
+        sent=True
+
+    if not sent:
+        line_bot_api.broadcast(TextSendMessage(text=text))
 
 def sendSlackMessage(conf, msg: dict,channel):
     if not channel:
