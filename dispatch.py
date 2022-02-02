@@ -31,7 +31,7 @@ def sendLINEMessage(conf, msg: dict):
         line_bot_api.multicast(users,TextSendMessage(text=text))
         sent=True
     if("group" in conf["LINE"]):
-        group = config["LINE"]["group"]
+        group = conf["LINE"]["group"]
         line_bot_api.push_message(group,TextSendMessage(text=text ))
         sent=True
 
