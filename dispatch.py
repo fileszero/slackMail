@@ -97,7 +97,7 @@ def dispatch( email_file=''):
     if channel=="":
         if "aliases" in conf:
             if mail.delivered_to in conf["aliases"]:
-                channel=conf["aliases"]["mail.delivered_to"]
+                channel=conf["aliases"][mail.delivered_to]
 
     print(msg)
     print(channel)
