@@ -18,6 +18,7 @@ default_privs
 ### /etc/aliases
 ```
 slack: "|(cd /path/to/script/slackMail; LC_CTYPE='C.UTF-8' /usr/local/bin/python3.8 dispatch.py)"
+withdrawal: "|(cd /path/to/script/slackMail; LC_CTYPE='C.UTF-8' /usr/local/bin/python3.8 dispatch.py)"
 ```
 ### /etc/aliases.regex
 ```

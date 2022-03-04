@@ -94,6 +94,11 @@ def dispatch( email_file=''):
     if match:
         channel= match.group(1)
 
+    if channel=="":
+        if "aliases" in conf:
+            if mail.delivered_to in conf["aliases"]:
+                channel=conf["aliases"]["mail.delivered_to"]
+
     print(msg)
     print(channel)
     if channel.upper() == "LINE":
