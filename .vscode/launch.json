@@ -12,7 +12,7 @@
             "request": "launch",
             "program": "dispatch.py",
             "console": "integratedTerminal",
-            "args": ["./sampledata/lalacall.eml"],
+            "args": ["./sampledata/mufgdebit.eml"],
             "cwd": "${workspaceFolder}"
         },
         {

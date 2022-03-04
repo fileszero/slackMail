@@ -8,3 +8,4 @@ converters/__pycache__/*
 converters/__pycache__/__init__.cpython-38.pyc
 converters/__pycache__/*
 *.pyc
+converters/sampledata/*

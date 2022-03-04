@@ -12,6 +12,7 @@ import config
 from converters import defaultConverter
 from converters import missedLalacall
 from converters import sbiContractNotification
+from converters import JCBDebitNotice
 
 from linebot import (
  LineBotApi, WebhookHandler
@@ -77,10 +78,13 @@ def dispatch( email_file=''):
 
     converter= defaultConverter.defaultConverter()
     # custom converters
+    print(mail.from_address)
     if mail.from_address=='missed_call_service@eonet.ne.jp':
         converter= missedLalacall.missedLalacall()
     if mail.from_address=='alert_master@sbisec.co.jp' and ("約定通知" in mail.subject):
         converter= sbiContractNotification.sbiContractNotification()
+    if 'mail@jcbdebit.bk.mufg.jp' in mail.from_address:
+        converter= JCBDebitNotice.JCBDebitNoticeConverter()
 
     msg=converter.convert(mail)
 
