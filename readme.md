@@ -15,17 +15,31 @@ allow_mail_to_commands = alias,forward,include
 
 default_privs
 
+
 ### /etc/aliases
 ```
 slack: "|(cd /path/to/script/slackMail; LC_CTYPE='C.UTF-8' /usr/local/bin/python3.8 dispatch.py)"
 withdrawal: "|(cd /path/to/script/slackMail; LC_CTYPE='C.UTF-8' /usr/local/bin/python3.8 dispatch.py)"
 ```
+https://teratail.com/questions/248753
 ### /etc/aliases.regex
 ```
 /^slack\+(.*)(@example.com)?$/ "|(cd /path/to/script/slackMail; LC_CTYPE='C.UTF-8' /usr/local/bin/python3.8 dispatch.py)"
 ```
 ### update alias
-$> newaliases
+> newaliases
+
+### /etc/postfix/access
+
+postmap /etc/postfix/access
+
+### /etc/postfix/access.regex
+
+sudo postmap /etc/postfix/access.regex
+
+↑不要かも
+### restart postfix
+sudo systemctl restart postfix
 
 ## Slack post
 ### install nkf

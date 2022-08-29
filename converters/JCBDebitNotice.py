@@ -14,6 +14,7 @@ class JCBDebitNoticeConverter:
 
     def convert(self,mail: MailParser.MailParser ):
         src=mail.body
+        subject="JCB"
         if mail.subject:
             body=f"`{mail.subject}`\n"
 
@@ -23,6 +24,10 @@ class JCBDebitNoticeConverter:
             if re.search(r'【ご利用', line):
                 # print(line, end="")
                 body +=line+"\n"
+                if re.search(r'金額', line) or re.search(r'ご利用先', line) :
+                    line =  re.sub('【.*】','',line).strip()
+                    subject += " " + line
+        body=f"`{subject}`\n" + body
 
         result={'text':body,'username':mail.from_address}
         return result

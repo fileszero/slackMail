@@ -85,6 +85,8 @@ def dispatch( email_file=''):
         converter= sbiContractNotification.sbiContractNotification()
     if 'mail@jcbdebit.bk.mufg.jp' in mail.from_address:
         converter= JCBDebitNotice.JCBDebitNoticeConverter()
+    if 'mail@qa.jcb.co.jp' in mail.from_address:
+        converter= JCBDebitNotice.JCBDebitNoticeConverter()
 
     msg=converter.convert(mail)
 

@@ -12,7 +12,7 @@
             "request": "launch",
             "program": "dispatch.py",
             "console": "integratedTerminal",
-            "args": ["./sampledata/mufgdebit.eml"],
+            "args": ["./sampledata/JCB_jibun.eml"],  //["./sampledata/mufgdebit.eml"],
             "cwd": "${workspaceFolder}"
         },
         {
